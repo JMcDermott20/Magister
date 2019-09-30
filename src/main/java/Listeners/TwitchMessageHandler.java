@@ -167,6 +167,12 @@ public class TwitchMessageHandler extends ListenerAdapter{
                     String afterMin = timeNoSpace.substring(timeNoSpace.indexOf('h')+1);
                     timeNoSpace = beforeMin.concat(noMin.concat(afterMin));
                 }
+                /*
+                    THIS IS THE OLD OUTPUT LINK FOR HIGHLIGHTS, THE WHITE TOWER HAS THE UPDATED CODE FOR THE NEW LINKS,
+                    JUST NEED TO GET ON IT
+                    2019-07-28 ~~~ @1h 18m : Dauntless : Seinfield ( Sensei_Balkar ) ~~~ http://www.twitch.tv/tritemare/manager/v459184061/highlight?t=1h18m
+                    2019-07-28 ~~~ @1h 23m : Dauntless : seinfeld 2 ( Sensei_Balkar ) ~~~ http://www.twitch.tv/tritemare/manager/v459184061/highlight?t=1h23m
+                */
 
                 // Making a datetime and formatting said datetime
                 String insDateStr = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
