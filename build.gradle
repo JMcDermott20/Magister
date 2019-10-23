@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.tacetnox'
-version '1.0.0'
+version '1.1.0'
 
 mainClassName = 'Magister'
 sourceCompatibility = 1.8
@@ -25,4 +25,4 @@ dependencies {
 }
 
 compileJava.options.encoding = 'UTF-8'
-shadowJar.archiveName = 'TwitchBot.v' + version + ".jar"
+shadowJar.archiveName = 'Magister.v' + version + ".jar"
