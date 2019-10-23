@@ -25,8 +25,6 @@ public class SQLConnect {
     // create properties
     private Properties getProperties() {
         if (properties == null) {
-
-
             properties = new Properties();
             properties.setProperty("user", USERNAME);
             properties.setProperty("password", PASSWORD);

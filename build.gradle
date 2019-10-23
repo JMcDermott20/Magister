@@ -12,6 +12,7 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -25,4 +26,4 @@ dependencies {
 }
 
 compileJava.options.encoding = 'UTF-8'
-shadowJar.archiveName = 'Magister.v' + version + ".jar"
+shadowJar.archiveFileName = 'Magister.v' + version + ".jar"
