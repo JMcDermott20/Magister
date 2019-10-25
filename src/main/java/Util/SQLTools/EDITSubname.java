@@ -1,4 +1,4 @@
-package Util;
+package Util.SQLTools;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

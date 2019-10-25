@@ -1,5 +1,5 @@
-import Util.GetLogin0Auth;
-import Util.SQLConnect;
+import Util.SQLTools.GetLogin0Auth;
+import Util.SQLTools.SQLConnect;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.cap.EnableCapHandler;

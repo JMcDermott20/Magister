@@ -1,4 +1,4 @@
-package Util; /**
+package Util.SQLTools; /**
  *  @author Tacet Nox
  *
  * SQL Database connector for use in bots

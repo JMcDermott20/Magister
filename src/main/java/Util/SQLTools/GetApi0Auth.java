@@ -1,11 +1,11 @@
-package Util;
+package Util.SQLTools;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class GetLogin0Auth {
+public class GetApi0Auth {
 
     private Connection conn;
     private String token;
@@ -15,7 +15,8 @@ public class GetLogin0Auth {
         this.conn = connection;
         Statement stmnt = null;
         try {
-            String sql = "SELECT login0Auth FROM TwitchSettings";
+            String sql = "SELECT api0Auth FROM TwitchSettings";
+
             stmnt = conn.createStatement();
             ResultSet rs = stmnt.executeQuery(sql);
 
@@ -24,12 +25,11 @@ public class GetLogin0Auth {
                 rs.close();
             }
             else{
-                token = rs.getString("login0Auth");
+                token = rs.getString("api0Auth");
                 rs.close();
             }
         } catch (SQLException e) {
-
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("Unable to create statement");
         }
         finally{
             stmnt.close();

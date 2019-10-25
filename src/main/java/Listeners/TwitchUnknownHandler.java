@@ -1,8 +1,8 @@
 package Listeners;
 
-import Util.GETSubname;
-import Util.SQLConnect;
-import Util.UPDATEmonths;
+import Util.SQLTools.GETSubname;
+import Util.SQLTools.SQLConnect;
+import Util.SQLTools.UPDATEmonths;
 import com.google.common.collect.ImmutableSetMultimap;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.UnknownEvent;

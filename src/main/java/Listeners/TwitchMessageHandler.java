@@ -5,6 +5,7 @@ package Listeners; /**
  */
 
 import Util.*;
+import Util.SQLTools.*;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -167,12 +168,7 @@ public class TwitchMessageHandler extends ListenerAdapter{
                     String afterMin = timeNoSpace.substring(timeNoSpace.indexOf('h')+1);
                     timeNoSpace = beforeMin.concat(noMin.concat(afterMin));
                 }
-                /*
-                    THIS IS THE OLD OUTPUT LINK FOR HIGHLIGHTS, THE WHITE TOWER HAS THE UPDATED CODE FOR THE NEW LINKS,
-                    JUST NEED TO GET ON IT
-                    2019-07-28 ~~~ @1h 18m : Dauntless : Seinfield ( Sensei_Balkar ) ~~~ http://www.twitch.tv/tritemare/manager/v459184061/highlight?t=1h18m
-                    2019-07-28 ~~~ @1h 23m : Dauntless : seinfeld 2 ( Sensei_Balkar ) ~~~ http://www.twitch.tv/tritemare/manager/v459184061/highlight?t=1h23m
-                */
+
 
                 // Making a datetime and formatting said datetime
                 String insDateStr = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -185,7 +181,7 @@ public class TwitchMessageHandler extends ListenerAdapter{
 
                 } else{
 
-                    String theUrl = "http://www.twitch.tv/tritemare/manager/" + urlIDThing + "/highlight?t=" + timeNoSpace;
+                    String theUrl = "https://www.twitch.tv/tritemare/manager/highlighter?" + urlIDThing + "t=" + timeNoSpace;
 
                     //System.out.println(theUrl);
                     //Just some cheeky response to show that we've gotten this far. Can also use this to determine latency on API calls
@@ -491,7 +487,7 @@ public class TwitchMessageHandler extends ListenerAdapter{
                 for (JsonElement result : data) {
                     videoID = result.getAsJsonObject().get("id").toString();
                     System.out.println("\n\n"+videoID);
-                    videoID="v"+videoID.replace("\"","");
+                    videoID= videoID.replace("\"","");
                     System.out.println("\n\n"+videoID);
                 }
             }else if(conn.getResponseCode() != 200) {

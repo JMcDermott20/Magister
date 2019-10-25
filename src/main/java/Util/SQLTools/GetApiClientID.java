@@ -1,36 +1,39 @@
-package Util;
+package Util.SQLTools;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class GETSubname {
-    private Connection conn;
-    private String subname;
+public class GetApiClientID {
 
-    public String get(String username, Connection connection) throws SQLException {
+    private Connection conn;
+    private String token;
+
+    public String getAuth(Connection connection) throws SQLException {
 
         this.conn = connection;
         Statement stmnt = null;
         try {
-            String sql = "SELECT SUBNAME FROM subs where USERNAME = '" +username+"'";
+            String sql = "SELECT apiClientID FROM TwitchSettings";
 
             stmnt = conn.createStatement();
             ResultSet rs = stmnt.executeQuery(sql);
 
             if (!rs.next() ) {
-                subname = "ERROR";
+                token = "err";
+                rs.close();
             }
             else{
-                subname = rs.getString("SUBNAME");
+                token = rs.getString("apiClientID");
+                rs.close();
             }
         } catch (SQLException e) {
             System.out.println("Unable to create statement");
         }
         finally{
             stmnt.close();
-            return subname;
+            return token;
         }
 
 
