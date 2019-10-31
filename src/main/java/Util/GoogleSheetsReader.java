@@ -12,6 +12,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
+import com.google.api.services.sheets.v4.model.AppendValuesResponse;
 import com.google.api.services.sheets.v4.model.UpdateValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -58,65 +59,27 @@ public class GoogleSheetsReader {
         }
     }
 
-
-    public static void GoogleSheetsReader(MessageEvent event, String user) throws IOException {
+//CURRENTLY Takes a Message event and a given highlight and inserts it into the table
+    public static void GoogleSheetsReader(String highlight) throws IOException {
         // Build a new authorized API client service.
         Sheets service = getSheetsService();
 
-        // List of keys for giveaway
-        //COL A: Beta keys
-        //COL B: Flare Keys
-        //COL C: Name of Winner
-        //COL D: Are they following
-        //COL E: DONE? (I guess so that we know it was handed out?)
-        // https://docs.google.com/spreadsheets/d/1VFANNya37lbImW4YtGAYeVJm0OipYe_62PsxndhVBZs/edit#gid=0
-        String spreadsheetId = "1VFANNya37lbImW4YtGAYeVJm0OipYe_62PsxndhVBZs";
-        String range = "Sheet1!A368:C";
-        ValueRange response = service.spreadsheets().values()
-                .get(spreadsheetId, range)
+
+        String spreadsheetId = "1EMgVILRL2zHLEcJv_aLaGOlJN1MHstdQOvcWSWPLPjw";
+        String range = "Sheet1!A1";
+
+        ValueRange appendBody = new ValueRange()
+                .setValues(Arrays.asList(
+                Arrays.asList(highlight+"")));
+        AppendValuesResponse appendResult = service.spreadsheets().values()
+                .append(spreadsheetId, range, appendBody)
+                .setValueInputOption("USER_ENTERED")
+                .setInsertDataOption("INSERT_ROWS")
+                .setIncludeValuesInResponse(true)
                 .execute();
-        List<List<Object>> values = response.getValues();
-        if (values == null || values.size() == 0) {
-            System.out.println("No data found.");
-        } else {
-            System.out.println("Beta Key  -- Flare Key -- Username");
-            Integer count = 368;
-            for (List row : values) {
-                // Print columns A Through E, which correspond to indices 0 - 4.
 
-                if(row.size()>1){
-                   String winners = row.get(2).toString();
-                   if(winners.equalsIgnoreCase(user)){
-                       event.respond("That user already received a code!");
-                       break;
-                   }
+        ValueRange total = appendResult.getUpdates().getUpdatedData();
 
-                }
-                if(row.size()==1) {
-                List<List<Object>> inserts = Arrays.asList(
-                        Arrays.asList(
-                                user,
-                                "YES",
-                                "DONE",
-                                "BOT UPDATED"
-                        )
-
-                );
-                ValueRange body = new ValueRange()
-                        .setValues(inserts);
-                UpdateValuesResponse result =
-                        service.spreadsheets().values().update(spreadsheetId, "C" + count + ":F" + count, body)
-                                .setValueInputOption("RAW")
-                                .execute();
-                System.out.printf("%d cells updated.", result.getUpdatedCells());
-                System.out.println("Row num: " + count + " Row Length: " + row.size() + "  --  " + row.get(0) + " -- Goes to " + user);
-                event.respond("Message sent to " + user);
-                event.respondWith("/w " + user + " Your game/flare code is: " + row.get(0));
-                break; // ONLY UPDATE THE MOST RECENTLY FOUND UNASSIGNED KEY
-                }
-                count++;
-            }
-        }
     }
 
 
@@ -130,7 +93,7 @@ public class GoogleSheetsReader {
     public static Credential authorize() throws IOException {
         // Load client secrets.
         InputStream in =
-                GoogleSheetsReader.class.getResourceAsStream("/client_secret.json");
+                GoogleSheetsReader.class.getResourceAsStream("/credentials.json");
         GoogleClientSecrets clientSecrets =
                 GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 

@@ -40,6 +40,7 @@ public class TwitchMessageHandler extends ListenerAdapter{
     //initializing the command users cooldown arraylist and arraylist for the rules list (if ever used again)
     private ArrayList<String> commandUse = new ArrayList<>();
     private ArrayList<String> rules = new ArrayList<>();
+
     private ArrayList<String> timestamps = new ArrayList<>();
 
     //Initializing cooldowns for commands
@@ -181,16 +182,17 @@ public class TwitchMessageHandler extends ListenerAdapter{
 
                 } else{
 
-                    String theUrl = "https://www.twitch.tv/tritemare/manager/highlighter?" + urlIDThing + "t=" + timeNoSpace;
+                    String theUrl = "https://www.twitch.tv/tritemare/manager/highlighter?" + urlIDThing + "&t=" + timeNoSpace;
 
                     //System.out.println(theUrl);
                     //Just some cheeky response to show that we've gotten this far. Can also use this to determine latency on API calls
                     event.respondWith("Recordin' all them goody-goodies, storing it in the treasure box triteL triteH");
 
                     //Adding the timestamp to the list to be appended to the timestamp file on next cache out
-                    timestamps.add(insDateStr + " ~~~ " + newStamp + " ~~~ " + theUrl);
+                    SheetReader.GoogleSheetsReader(insDateStr + " ~~~ " + newStamp + " ~~~ " + theUrl);
                     //Setting the need for a cacheout to true
-                    writeNeeded++;
+                    //NOW unneeded if it adds to the sheets page immediately
+                    //writeNeeded++;
                 }
 
             }
@@ -302,13 +304,6 @@ public class TwitchMessageHandler extends ListenerAdapter{
                     event.respondWith("triteO triteO triteO triteO triteO triteO triteO triteO triteO triteO "
                             + "triteO triteO triteO triteO triteO PRChase");
                     break;
-                case "!gamecode":
-                    if(isMod == 1) {
-                        String codeWinner = message.split(" ", 2)[1];
-                        SheetReader.GoogleSheetsReader(event, codeWinner);
-                    }
-
-                    break;
                 default:
                     //Do nothing
                     break;
@@ -398,10 +393,14 @@ public class TwitchMessageHandler extends ListenerAdapter{
     /**
      * Writes out changes to the name list and timestamp file if a change has been queued up (mainly timestamp now
      * as the name list has been migrated to a database)
+     *
      */
+    @Deprecated
     public void cacheOut(){
-        //Reset watcher
+        /*Reset watcher
         writeNeeded = 0;
+
+        SheetReader.GoogleSheetsReader();
 
         String timestampList = "./timestamps.txt";
         try(PrintWriter file = new PrintWriter(new BufferedWriter(new FileWriter(timestampList, true))))
@@ -415,6 +414,8 @@ public class TwitchMessageHandler extends ListenerAdapter{
             System.out.println(e.getMessage());
         }
         System.out.println("Cached out");
+
+         */
     }
 
     /**
