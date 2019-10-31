@@ -15,7 +15,7 @@ public class GetApiClientID {
         this.conn = connection;
         Statement stmnt = null;
         try {
-            String sql = "SELECT apiClientID FROM TwitchSettings";
+            String sql = "SELECT apiClientID FROM twitchsettings";
 
             stmnt = conn.createStatement();
             ResultSet rs = stmnt.executeQuery(sql);
