@@ -4,7 +4,7 @@ package Listeners; /**
  * Event Listener for Twitch.tv, most handling is done here, whispers are handled in WhisperHandler
  */
 
-import Util.*;
+import Util.GoogleSheets.GoogleSheetsReader;
 import Util.SQLTools.*;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

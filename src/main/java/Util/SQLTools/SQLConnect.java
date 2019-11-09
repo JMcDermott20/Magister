@@ -14,7 +14,7 @@ public class SQLConnect {
     private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DATABASE_URL = "jdbc:mysql://127.0.0.1:3306/tritemare?useSSL=false";
     private static final String USERNAME = "tacet";
-    private static final String PASSWORD = "PASSHERE"; //Update When Building with Proper Password
+    private static final String PASSWORD = "Elminster5"; //Update When Building with Proper Password
 
 
     // init connection object
