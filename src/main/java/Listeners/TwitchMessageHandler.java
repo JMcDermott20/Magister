@@ -242,9 +242,7 @@ public class TwitchMessageHandler extends ListenerAdapter{
                         removeRule(event, ruleRemoved);
                     }break;
                 case "!listrules":
-                    if(isMod == 1){
                         listRules(event);
-                    }
                     break;
                 case "!clearrules":
                     if(isMod == 1){
