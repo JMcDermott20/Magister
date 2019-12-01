@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.tacetnox'
-version '1.2.0'
+version '1.2.5'
 
 mainClassName = 'Magister'
 sourceCompatibility = 1.8

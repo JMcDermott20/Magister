@@ -36,14 +36,15 @@ public class TwitchUnknownHandler extends ListenerAdapter{
         System.out.println("\n******************************************\n");
 
         //CHECK FOR RESUB NOTIFICATION
-        if(tags.containsKey("msg-param-months")){
+        if(tags.containsKey("msg-param-cumulative-months")){
 
             l.info("\nFOUND THIS PARAM");
 
             String name = tags.get("login").toArray()[0].toString();
 
 
-            int x = Integer.parseInt(tags.get("msg-param-months").toArray()[0].toString());
+            int x = Integer.parseInt(tags.get("msg-param-cumulative-months").toArray()[0].toString());
+
 
 
 
